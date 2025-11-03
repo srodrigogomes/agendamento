@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento IA por WhatsApp</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a biblioteca de ícones Heroicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        /* Fonte Inter (padrão do Tailwind) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Animação de fade-in */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        /* Estilos para a simulação do chat */
+        .chat-bubble {
+            max-width: 80%;
+            padding: 10px 16px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            position: relative;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        .client-bubble {
+            background-color: #e2e8f0; /* cinza claro */
+            color: #1e293b;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .ia-bubble {
+            background-color: #4f46e5; /* roxo indigo */
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        /* Animação dos balões */
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .delay-1 { animation-delay: 0.5s; }
+        .delay-2 { animation-delay: 1.5s; }
+        .delay-3 { animation-delay: 2.5s; }
+        .delay-4 { animation-delay: 3.5s; }
+
+        /* Ícone de digitação */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            animation: popIn 0.5s forwards;
+            opacity: 0;
+        }
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 1px;
+            animation: bounce 1.4s infinite both;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
+
+        <!-- Container Principal -->
+        <div class="w-full max-w-4xl mx-auto">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+
+                <!-- Coluna de Texto (Conteúdo) -->
+                <div class="text-center md:text-left fade-in">
+                    <span class="text-sm font-semibold text-indigo-400 uppercase tracking-wider">Sua agenda no piloto automático</span>
+                    <h1 class="text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-6">
+                        Sua agenda no WhatsApp, 100% automática.
+                    </h1>
+                    <p class="text-lg lg:text-xl text-gray-300 mb-8">
+                        Deixe nossa Inteligência Artificial agendar seus clientes 24h por dia. Pare de perder tempo respondendo mensagens e não perca mais nenhum cliente.
+                    </p>
+                    <a href="https://wa.me/5543991501148?text=gostaria%20de%20fazer%20um%20agendamento" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="w-full md:w-auto inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-8 py-4 rounded-lg shadow-lg transition-transform transform hover:scale-105">
+                        Quero Testar Agora
+                    </a>
+                </div>
+
+                <!-- Coluna da Simulação de Chat -->
+                <div class="w-full max-w-sm mx-auto p-4 bg-white rounded-2xl shadow-2xl fade-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center pb-3 border-b border-gray-200">
+                        <img src="https://placehold.co/40x40/4f46e5/FFFFFF?text=IA" alt="Avatar IA" class="rounded-full mr-3">
+                        <div>
+                            <p class="font-bold text-gray-800">Secretária Virtual (IA)</p>
+                            <p class="text-sm text-gray-500">online</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Área do Chat -->
+                    <div class="flex flex-col h-80 py-4 px-2 overflow-y-auto">
+                        
+                        <!-- Mensagem Cliente 1 -->
+                        <div class="chat-bubble client-bubble delay-1">
+                            Olá! Tem horário para corte na sexta à tarde?
+                        </div>
+
+                        <!-- Digitanto... -->
+                        <div class="typing-indicator delay-2">
+                            <span></span><span></span><span></span>
+                        </div>
+
+                        <!-- Mensagem IA 1 -->
+                        <div class="chat-bubble ia-bubble delay-3">
+                            <p class="font-bold mb-1">🤖 Olá! Claro!</p>
+                            Tenho horários disponíveis na Sexta-feira (dia 07):
+                            <br> • 14:30
+                            <br> • 16:00
+                            <br>Qual horário fica melhor para você?
+                        </div>
+
+                        <!-- Mensagem Cliente 2 -->
+                        <div class="chat-bubble client-bubble delay-4">
+                            Pode ser 16:00!
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Benefícios -->
+            <div id="saiba-mais" class="mt-20 lg:mt-32 text-center fade-in" style="animation-delay: 0.4s;">
+                <h2 class="text-3xl font-bold mb-12">Por que automatizar seu agendamento?</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    
+                    <!-- Benefício 1 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <ion-icon name="time-outline" class="text-indigo-400 text-5xl mx-auto mb-4"></ion-icon>
+                        <h3 class="text-xl font-bold mb-2">Economize seu Tempo</h3>
+                        <p class="text-gray-300">Pare de responder "Que horas tem?" e foque no que realmente importa: atender seus clientes.</p>
+                    </div>
+
+                    <!-- Benefício 2 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <ion-icon name="calendar-outline" class="text-indigo-400 text-5xl mx-auto mb-4"></ion-icon>
+                        <h3 class="text-xl font-bold mb-2">Funciona 24/7</h3>
+                        <p class="text-gray-300">Sua agenda trabalha para você até de madrugada. Agende clientes mesmo quando seu negócio está fechado.</p>
+                    </div>
+
+                    <!-- Benefício 3 -->
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                        <ion-icon name="trending-up-outline" class="text-indigo-400 text-5xl mx-auto mb-4"></ion-icon>
+                        <h3 class="text-xl font-bold mb-2">Não Perca Clientes</h3>
+                        <p class="text-gray-300">Cliente que não é respondido na hora vai para o concorrente. Nossa IA responde e agenda em segundos.</p>
+
+
